@@ -22,13 +22,13 @@ public class Users{
     public String get(@PathParam("UserID") Integer UserID) {
         System.out.println("Invoked Users.get() with UserID " + UserID);
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT UserName, Password, Level, Coins, HighScore, LoginToken, Colour1, Colour2, Speedstat, Healthstat, Shieldstat, Settings1, Settings2, Settings3, Settings4 FROM Users WHERE UserID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT Username, Password, Level, Coins, HighScore, LoginToken, Colour1, Colour2, Speedstat, Healthstat, Shieldstat, Settings1, Settings2, Settings3, Settings4 FROM Users WHERE UserID = ?");
             ps.setInt(1, UserID);
             ResultSet results = ps.executeQuery();
             JSONObject response = new JSONObject();
             if (results.next()== true) {
                 response.put("UserID", UserID);
-                response.put("UserName", results.getString(1));
+                response.put("Username", results.getString(1));
                 response.put("Password", results.getString(2));
                 response.put("Level", results.getInt(3));
                 response.put("Coins", results.getInt(4));
@@ -55,27 +55,27 @@ public class Users{
     }
 
     @POST
-    @Path("update")
-    public String Save(@FormDataParam("UserID") Integer UserID, @FormDataParam("UserName") String UserName, @FormDataParam("Password") String Password, @FormDataParam("Level") Integer Level, @FormDataParam("Coins") Integer Coins, @FormDataParam("HighScore") Integer HighScore, @FormDataParam("LoginToken") String LoginToken, @FormDataParam("Colour1") String Colour1, @FormDataParam("Colour2") String Colour2, @FormDataParam("Speedstat") Integer Speedstat, @FormDataParam("Healthstat") Integer Healthstat, @FormDataParam("Shieldstat") Integer Shieldstat, @FormDataParam("Settings1") String Settings1, @FormDataParam("Settings2") Integer Settings2, @FormDataParam("Settings3") String Settings3, @FormDataParam("Settings4") Integer Settings4) {
+    @Path("save")
+    public String Save(@FormDataParam("UserID") Integer UserID, @FormDataParam("Username") String Username, @FormDataParam("Password") String Password, @FormDataParam("Level") Integer Level, @FormDataParam("Coins") Integer Coins, @FormDataParam("HighScore") Integer HighScore, @FormDataParam("LoginToken") String LoginToken, @FormDataParam("Colour1") String Colour1, @FormDataParam("Colour2") String Colour2, @FormDataParam("Speedstat") Integer Speedstat, @FormDataParam("Healthstat") Integer Healthstat, @FormDataParam("Shieldstat") Integer Shieldstat, @FormDataParam("Settings1") String Settings1, @FormDataParam("Settings2") Integer Settings2, @FormDataParam("Settings3") String Settings3, @FormDataParam("Settings4") Integer Settings4) {
         try {
             System.out.println("Invoked Users.UpdateUsers/update UserID=" + UserID);
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET UserName = ? , Password = ? , Level = ? , Coins = ? , HighScore = ? , LoginToken = ? , Colour1 = ? , Colour2 = ? , Speedstat = ? , Healthstat = ? , Shieldstat = ? , Settings1 = ? , Settings2 = ? , Settings3 = ? , Settings4 = ? WHERE UserID = ?");
-            ps.setString(1, UserName);
-            ps.setInt(2, UserID);
-            ps.setString(3, Password);
-            ps.setInt(4,Level);
-            ps.setInt(5, Coins);
-            ps.setInt(6, HighScore);
-            ps.setString(7, LoginToken);
-            ps.setString(8, Colour1);
-            ps.setString(9, Colour2);
-            ps.setInt(10, Speedstat);
-            ps.setInt(11, Healthstat);
-            ps.setInt(12, Shieldstat);
-            ps.setString(13, Settings1);
-            ps.setInt(14, Settings2);
-            ps.setString(15, Settings3);
-            ps.setInt(16, Settings4);
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET Username = ? , Password = ? , Level = ? , Coins = ? , HighScore = ? , LoginToken = ? , Colour1 = ? , Colour2 = ? , Speedstat = ? , Healthstat = ? , Shieldstat = ? , Settings1 = ? , Settings2 = ? , Settings3 = ? , Settings4 = ? WHERE UserID = ?");
+            ps.setString(1, Username);
+            ps.setString(2, Password);
+            ps.setInt(3,Level);
+            ps.setInt(4, Coins);
+            ps.setInt(5, HighScore);
+            ps.setString(6, LoginToken);
+            ps.setString(7, Colour1);
+            ps.setString(8, Colour2);
+            ps.setInt(9, Speedstat);
+            ps.setInt(10, Healthstat);
+            ps.setInt(11, Shieldstat);
+            ps.setString(12, Settings1);
+            ps.setInt(13, Settings2);
+            ps.setString(14, Settings3);
+            ps.setInt(15, Settings4);
+            ps.setInt(16, UserID);
             ps.execute();
             return "{\"OK\": \"Users updated\"}";
         } catch (Exception exception) {

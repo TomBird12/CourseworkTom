@@ -1,8 +1,9 @@
 "use strict";
 function getUser() {
     debugger;
-    console.log("Invoked getUser()");     //console.log your BFF for debugging client side - also use debugger statement
-    const url = "/users/get/";    		// API method on web server will be in Users class, method list                       ADD Input for UserID into get
+    let UserID = document.getElementById("UserID").value;
+    console.log("Invoked getUser() with UserID of "+UserID);     //console.log your BFF for debugging client side - also use debugger statement
+    const url = "/users/get/"+UserID;    		// API method on web server will be in Users class, method list                       ADD Input for UserID into get
     fetch(url, {
         method: "GET",				//Get method
     }).then(response => {
