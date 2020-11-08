@@ -1,10 +1,9 @@
 var myGamePiece;
-var myGamePiece2;
+
 
 function startGame() {
     myGameArea.start();
     myGamePiece = new component(30, 30, "red", 10, 120, true);
-    myGamePiece2 = new component(30, 80, "red", 400, 50, false);
 }
 
 var myGameArea = {
@@ -16,6 +15,10 @@ var myGameArea = {
         this.canvas.style.border = '3px solid #000';
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);
+
+        //sets interval for newObstacle function to be called every 0.5 seconds
+        this.interval = setInterval(gameObstacles.newObstacle, 250);
+
         window.addEventListener('keydown', function (e) {
             myGameArea.keys = (myGameArea.keys || []);
             myGameArea.keys[e.keyCode] = (e.type == "keydown");
@@ -69,6 +72,17 @@ function component(width, height, color, x, y, isPhysicsEnabled) {
             this.y = 0;
             this.gravitySpeed = 0;
         }
+
+        //left
+        if(this.x < 0){
+            this.x = 0;
+        }
+
+        //right
+        var rightboundary = myGameArea.canvas.width - this.width;
+        if(this.x > rightboundary){
+            this.x = rightboundary;
+        }
     }
 }
 
@@ -76,10 +90,43 @@ function component(width, height, color, x, y, isPhysicsEnabled) {
 function updateGameArea() {
     myGameArea.clear();
 
-    //myGamePiece2 --------------------------------------------------------------------------
-    myGamePiece2.newPos();
-    myGamePiece2.update();
-    myGamePiece2.speedX = -1;
+    //Obstacles-------------------------------------------------------------------------------
+    for(x = 0; x < gameObstacles.Obstacles.length; x++){
+        let obstacle = gameObstacles.Obstacles[x];
+        if(obstacle.x < -100){
+            gameObstacles.Obstacles.splice(x, 1);
+        }
+        obstacle.speedX = -3;
+        obstacle.newPos();
+        obstacle.update();
+        if(boxCollision(obstacle, myGamePiece)) {
+            obstacle.color = 'green';
+
+            //Top collision
+            if((myGamePiece.y + myGamePiece.height > obstacle.y) && (myGamePiece.x + myGamePiece.width*0.5 > obstacle.x) && (myGamePiece.x + myGamePiece.width*0.5 < obstacle.x + obstacle.width) && (myGamePiece.y + myGamePiece.height*0.5 < obstacle.y)){
+                myGamePiece.y = obstacle.y - myGamePiece.height
+                myGamePiece.gravitySpeed = 0;
+            }
+
+            //Bottom collision
+            if((myGamePiece.y < obstacle.y + obstacle.height) && (myGamePiece.y + myGamePiece.height*0.5 > obstacle.y + obstacle.height) && (myGamePiece.x + myGamePiece.width*0.5 > obstacle.x) && (myGamePiece.x + myGamePiece.width*0.5 < obstacle.x + obstacle.width)){
+                myGamePiece.y = obstacle.y + obstacle.height;
+                myGamePiece.gravitySpeed = 0;
+            }
+
+            //Left hand side collision
+            if ((myGamePiece.y + myGamePiece.height*0.5 > obstacle.y) && (myGamePiece.x < obstacle.x) && ((myGamePiece.x + myGamePiece.width) > obstacle.x) && (myGamePiece.y + myGamePiece.height*0.5 < obstacle.y + obstacle.height)) {
+                myGamePiece.x = obstacle.x - myGamePiece.width;
+            }
+
+            //Right hand side collision
+            if ((myGamePiece.y + myGamePiece.height*0.5 > obstacle.y) && (myGamePiece.x > obstacle.x + obstacle.width*0.5) && (myGamePiece.x < obstacle.x + obstacle.width) && (myGamePiece.y + myGamePiece.height*0.5 < obstacle.y + obstacle.height)) {
+                myGamePiece.x = obstacle.x + obstacle.width;
+            }
+        }
+    }
+
+
 
     //myGamePiece ----------------------------------------------------------------------------
     myGamePiece.speedX = 0;
@@ -103,12 +150,6 @@ function updateGameArea() {
 
     myGamePiece.newPos();
     myGamePiece.update();
-    if(boxCollision(myGamePiece, myGamePiece2)){
-        myGamePiece.color = "green";
-    }
-    else {
-        myGamePiece.color = "red";
-    }
 }
 
 function boxCollision(rect1, rect2){
@@ -121,4 +162,13 @@ function boxCollision(rect1, rect2){
     else {
         return false;
     }
+}
+
+var gameObstacles = {
+    Obstacles : [],
+    newObstacle : function (){
+        var obst = new component((Math.floor(Math.random() * 120) + 40), (Math.floor(Math.random() * 120) + 40), 'black', myGameArea.canvas.width, Math.floor(Math.random() * (myGameArea.canvas.height + 30)), false);
+        gameObstacles.Obstacles.push(obst);
+        var test = 0;
+    },
 }
