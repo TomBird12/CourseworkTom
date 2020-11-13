@@ -37,7 +37,6 @@ function UsersLogin() {
         if (response.hasOwnProperty("Error")) {
             alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
         } else {
-            debugger;
             Cookies.set("LoginToken", response.LoginToken);
             Cookies.set("Username", response.Username);
             //window.open("mainmenu.html", "_self");       //open index.html in same tab
