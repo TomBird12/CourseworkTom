@@ -1,14 +1,18 @@
 package controllers;
 
 import org.glassfish.jersey.media.multipart.FormDataParam;
+//import org.graalvm.compiler.lir.LIRInstruction;
+//import org.graalvm.compiler.replacements.SnippetTemplate;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import server.Main;
+//import sun.tools.jstat.Token;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.UUID;
 
 @Path("users/")
 @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -58,7 +62,7 @@ public class Users{
     @Path("save")
     public String Save(@FormDataParam("UserID") Integer UserID, @FormDataParam("Username") String Username, @FormDataParam("Password") String Password, @FormDataParam("Level") Integer Level, @FormDataParam("Coins") Integer Coins, @FormDataParam("HighScore") Integer HighScore, @FormDataParam("LoginToken") String LoginToken, @FormDataParam("Colour1") String Colour1, @FormDataParam("Colour2") String Colour2, @FormDataParam("Speedstat") Integer Speedstat, @FormDataParam("Healthstat") Integer Healthstat, @FormDataParam("Shieldstat") Integer Shieldstat, @FormDataParam("Settings1") String Settings1, @FormDataParam("Settings2") Integer Settings2, @FormDataParam("Settings3") String Settings3, @FormDataParam("Settings4") Integer Settings4) {
         try {
-            System.out.println("Invoked Users.UpdateUsers/update UserID=" + UserID);
+            System.out.println("Invoked Users.save() UserID=" + UserID);
             PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET Username = ? , Password = ? , Level = ? , Coins = ? , HighScore = ? , LoginToken = ? , Colour1 = ? , Colour2 = ? , Speedstat = ? , Healthstat = ? , Shieldstat = ? , Settings1 = ? , Settings2 = ? , Settings3 = ? , Settings4 = ? WHERE UserID = ?");
             ps.setString(1, Username);
             ps.setString(2, Password);
@@ -83,6 +87,67 @@ public class Users{
             return "{\"Error\": \"Unable to update item, please see server console for more info.\"}";
         }
     }
+
+    @POST
+    @Path("attemptlogin")
+    public String attemptlogin(@FormDataParam("Username") String Username, @FormDataParam("Password") String Password){
+        try{
+            System.out.println("Invoked Users.attemptlogin Username= "+Username);
+            PreparedStatement ps1 = Main.db.prepareStatement("SELECT Password FROM Users WHERE Username = ?");
+            ps1.setString(1, Username);
+            ResultSet loginResults = ps1.executeQuery();
+            if(loginResults.next() == true) {
+                String correctPassword = loginResults.getString(1);
+                if(Password.equals(correctPassword)){
+                    String LoginToken = UUID.randomUUID().toString();
+                    PreparedStatement ps2 = Main.db.prepareStatement("UPDATE Users SET LoginToken = ? WHERE Username = ?");
+                    ps2.setString(1, LoginToken);
+                    ps2.setString(2, Username);
+                    ps2.executeUpdate();
+                    JSONObject userDetails = new JSONObject();
+                    userDetails.put("Username", Username);
+                    userDetails.put("LoginToken", LoginToken);
+                    return userDetails.toString();
+                }
+                else {
+                    return "{\"Error\": \"Incorrect password!\"}";
+                }
+            }
+            else {
+                return "{\"Error\": \"Incorrect username!\"}";
+            }
+        } catch (Exception exception){
+            System.out.println("Database error during users/attemptlogin: " + exception.getMessage());
+            return "{\"Error\": \"Server side error!\"}";
+        }
+
+    }
+
+    @POST
+    @Path("logout")
+    public static String logout(@CookieParam("LoginToken") String LoginToken){
+        try{
+            System.out.println("invoked users/logout with LoginToken: "+ LoginToken);
+            PreparedStatement ps = Main.db.prepareStatement("SELECT UserID FROM Users WHERE LoginToken=?");
+            ps.setString(1, LoginToken);
+            ResultSet logoutResults = ps.executeQuery();
+            if (logoutResults.next()){
+                int UserID = logoutResults.getInt(1);
+                //Set the token to null to indicate that the user is not logged in
+                PreparedStatement ps1 = Main.db.prepareStatement("UPDATE Users SET LoginToken = NULL WHERE UserID = ?");
+                ps1.setInt(1, UserID);
+                ps1.executeUpdate();
+                return "{\"status\": \"OK\"}";
+            } else {
+                return "{\"error\": \"Invalid token!\"}";
+
+            }
+        } catch (Exception ex) {
+            System.out.println("Database error during /users/logout: " + ex.getMessage());
+            return "{\"error\": \"Server side error!\"}";
+        }
+    }
+
 
 
 }
