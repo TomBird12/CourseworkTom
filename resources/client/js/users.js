@@ -26,7 +26,14 @@ function UsersLogin() {
     //debugger;
     console.log("Invoked UsersLogin() ");
     let url = "/users/attemptlogin";
-    let formData = new FormData(document.getElementById('LoginForm'));
+    if(document.forms["LoginForm"]["Username"].value == "" || document.forms["LoginForm"]["Password"].value == ""){
+        alert("Please enter a username and password")
+        return;
+    }
+    else{
+        var formData = new FormData(document.getElementById('LoginForm'));
+    }
+
 
     fetch(url, {
         method: "POST",
