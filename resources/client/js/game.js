@@ -8,6 +8,7 @@ function startGame() {
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
+    Colours : ['black','red','yellow','green','blue','purple','pink','lilac','orange','indigo'],
     start : function() {
         this.canvas.width = 1580;
         this.canvas.height = 670;
@@ -164,10 +165,11 @@ function boxCollision(rect1, rect2){
     }
 }
 
+
 var gameObstacles = {
     Obstacles : [],
     newObstacle : function (){
-        var obst = new component((Math.floor(Math.random() * 120) + 40), (Math.floor(Math.random() * 120) + 40), 'black', myGameArea.canvas.width, Math.floor(Math.random() * (myGameArea.canvas.height + 30)), false);
+        var obst = new component((Math.floor(Math.random() * 120) + 40), (Math.floor(Math.random() * 120) + 40), myGameArea.Colours[Math.floor(Math.random()*9)], myGameArea.canvas.width, Math.floor(Math.random() * (myGameArea.canvas.height + 30)), false);
         gameObstacles.Obstacles.push(obst);
         var test = 0;
     },
