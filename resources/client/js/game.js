@@ -1,15 +1,28 @@
 var myGamePiece;
+var UserID;
+var UserData = {};
+var Score;
+var Health;
+var ScoreVal = 0;
+var HealthVal = 10;
 
 
 function startGame() {
     myGameArea.start();
     myGamePiece = new component(30, 30, "red", 10, 120, true);
+    Score = new textComponent("Score: ", 500, 200, 20, 60);
+    Health = new textComponent("Health: ", 500, 200, 400, 60)
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
-    Colours : ['black','red','yellow','green','blue','purple','pink','lilac','orange','indigo'],
     start : function() {
+        /*UserID = Cookies.get("UserID");
+        console.log(UserID);
+        UserData = getUser(UserID);
+        HealthVal = UserData.Healthstat;*/
+
+        ////////////////////////////////////////////////////////////////////////
         this.canvas.width = 1580;
         this.canvas.height = 670;
         this.context = this.canvas.getContext("2d");
@@ -18,7 +31,7 @@ var myGameArea = {
         this.interval = setInterval(updateGameArea, 20);
 
         //sets interval for newObstacle function to be called every 0.5 seconds
-        this.interval = setInterval(gameObstacles.newObstacle, 250);
+        this.interval = setInterval(gameObstacles.newObstacle, 500);
 
         window.addEventListener('keydown', function (e) {
             myGameArea.keys = (myGameArea.keys || []);
@@ -87,6 +100,24 @@ function component(width, height, color, x, y, isPhysicsEnabled) {
     }
 }
 
+function textComponent(text, width, height, x, y) {
+    this.gamearea = myGameArea;
+    this.text = text;
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y;
+
+    this.update = function (text, color) {
+        ctx = myGameArea.context;
+        ctx.font = "50px Raleway Light";
+        ctx.fillStyle = "grey";
+        ctx.fillRect(x,15,300,60);
+        ctx.fillStyle = color;
+        ctx.fillText(text, x, y, width);
+    }
+}
+
 //notes: keep gamearea.clear() at top, keep myGamePiece stuff at bottom so it renders on top of other components
 function updateGameArea() {
     myGameArea.clear();
@@ -151,6 +182,11 @@ function updateGameArea() {
 
     myGamePiece.newPos();
     myGamePiece.update();
+
+    //Text components
+    ScoreVal += 1;
+    Score.update("Score: "+(ScoreVal*0.1).toFixed(0), "black");
+    Health.update("Health: "+HealthVal, "black");
 }
 
 function boxCollision(rect1, rect2){
@@ -169,7 +205,7 @@ function boxCollision(rect1, rect2){
 var gameObstacles = {
     Obstacles : [],
     newObstacle : function (){
-        var obst = new component((Math.floor(Math.random() * 120) + 40), (Math.floor(Math.random() * 120) + 40), myGameArea.Colours[Math.floor(Math.random()*9)], myGameArea.canvas.width, Math.floor(Math.random() * (myGameArea.canvas.height + 30)), false);
+        var obst = new component((Math.floor(Math.random() * 120) + 40), (Math.floor(Math.random() * 120) + 40), "black", myGameArea.canvas.width, Math.floor(Math.random() * (myGameArea.canvas.height + 30)), false);
         gameObstacles.Obstacles.push(obst);
         var test = 0;
     },

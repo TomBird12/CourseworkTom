@@ -1,7 +1,5 @@
 "use strict";
-function getUser() {
-    debugger;
-    let UserID = document.getElementById("UserID").value;
+function getUser(UserID) {
     console.log("Invoked getUser() with UserID of "+UserID);     //console.log your BFF for debugging client side - also use debugger statement
     const url = "/users/get/"+UserID;    		// API method on web server will be in Users class, method list                       ADD Input for UserID into get
     fetch(url, {
@@ -12,18 +10,17 @@ function getUser() {
         if (response.hasOwnProperty("Error")) { //checks if response from the web server has an "Error"
             alert(JSON.stringify(response));    // if it does, convert JSON object to string and alert (pop up window)
         } else {
-            formatUser(response);          //this function will create an HTML table of the data (as per previous lesson)
+            return response;          //this function will create an HTML table of the data (as per previous lesson)
         }
     });
 }
 
-function formatUser(item){
+/*function formatUser(item){
     let dataHTML = "<tr><td>" + item.UserID + "<td><td>" + item.UserName + "<tr><td>";
-    document.getElementById("UsersTable").innerHTML = dataHTML;
-}
+    return dataHTML;
+}*/
 
 function UsersLogin() {
-    //debugger;
     console.log("Invoked UsersLogin() ");
     let url = "/users/attemptlogin";
     if(document.forms["LoginForm"]["Username"].value == "" || document.forms["LoginForm"]["Password"].value == ""){
@@ -45,8 +42,8 @@ function UsersLogin() {
             alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
         } else {
             Cookies.set("LoginToken", response.LoginToken);
-            Cookies.set("Username", response.Username);
-            //window.open("mainmenu.html", "_self");       //open index.html in same tab
+            Cookies.set("UserID", response.UserID);
+            window.open("gamepage.html", "_self");       //open mainmenu.html in same tab
         }
     });
 }

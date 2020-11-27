@@ -104,9 +104,18 @@ public class Users{
                     ps2.setString(1, LoginToken);
                     ps2.setString(2, Username);
                     ps2.executeUpdate();
+                    PreparedStatement ps3 = Main.db.prepareStatement("SELECT UserID FROM Users WHERE Username = ?");
+                    ps3.setString(1, Username);
+                    ResultSet UserID = ps3.executeQuery();
                     JSONObject userDetails = new JSONObject();
-                    userDetails.put("Username", Username);
+                    if(UserID.next() == true){
+                        userDetails.put("UserID", UserID.getInt(1));
+                    }
+                    else {
+                        System.out.println("Database error!");
+                    }
                     userDetails.put("LoginToken", LoginToken);
+                    System.out.println(userDetails);
                     return userDetails.toString();
                 }
                 else {
