@@ -246,6 +246,4 @@ function gameOver(){
     ctx.font = "100px Arial"
     ctx.fillText("GAME OVER", screenWidth*0.5 - 400, screenHeight*0.5, 800);
     ctx.globalAlpha = 0.4;
-    document.getElementById("PlayAgain").style.display = "block";
-    document.getElementById("Quit").style.display = "block";
 }

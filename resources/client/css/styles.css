@@ -1,13 +1,60 @@
-#userDetails{
-    background-color: yellow;
+body{
+    background-color: aqua;
 }
 
-#PlayAgain{
-    display: none;
+#buttons{
+    width: 500px;
+    height: 500px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+
 }
 
-#Quit{
-    display: none;
+#play{
+    background-color: black;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 60px;
+    position: relative;
+    margin: 10px 0px ;
+    width: 500px;
+    top: 100px
+}
+
+#customization{
+    background-color: black;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 60px;
+    position: relative;
+    margin: 10px 0px;
+    width: 500px;
+    top: 110px;
 }
 
 
+#settings{
+    background-color: black;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 60px;
+    position: relative;
+    margin: 10px 0px;
+    width: 500px;
+    top: 120px;
+}
