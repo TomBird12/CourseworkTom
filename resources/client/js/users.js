@@ -1,24 +1,17 @@
 "use strict";
-function getUser(UserID) {
+async function getUser(UserID) {
     console.log("Invoked getUser() with UserID of "+UserID);     //console.log your BFF for debugging client side - also use debugger statement
     const url = "/users/get/"+UserID;    		// API method on web server will be in Users class, method list                       ADD Input for UserID into get
-    fetch(url, {
-        method: "GET",				//Get method
-    }).then(response => {
-        return response.json();                 //return response as JSON
-    }).then(response => {
-        if (response.hasOwnProperty("Error")) { //checks if response from the web server has an "Error"
-            alert(JSON.stringify(response));    // if it does, convert JSON object to string and alert (pop up window)
-        } else {
-            return response;          //this function will create an HTML table of the data (as per previous lesson)
-        }
-    });
+
+    const response = await fetch(url, {method: "GET"});
+    if (response.hasOwnProperty("Error")) { //checks if response from the web server has an "Error"
+        alert(JSON.stringify(response));    // if it does, convert JSON object to string and alert (pop up window)
+    } else {
+        const data = await response.json();
+        return JSON.parse(JSON.stringify(data))
+    }
 }
 
-/*function formatUser(item){
-    let dataHTML = "<tr><td>" + item.UserID + "<td><td>" + item.UserName + "<tr><td>";
-    return dataHTML;
-}*/
 
 function UsersLogin() {
     console.log("Invoked UsersLogin() ");
@@ -30,7 +23,6 @@ function UsersLogin() {
     else{
         var formData = new FormData(document.getElementById('LoginForm'));
     }
-
 
     fetch(url, {
         method: "POST",

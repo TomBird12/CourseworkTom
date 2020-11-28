@@ -2,5 +2,12 @@
     background-color: yellow;
 }
 
+#PlayAgain{
+    display: none;
+}
+
+#Quit{
+    display: none;
+}
 
 

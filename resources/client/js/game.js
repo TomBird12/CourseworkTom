@@ -1,11 +1,15 @@
 var myGamePiece;
 var UserID;
-var UserData = {};
 var Score;
 var Health;
 var ScoreVal = 0;
 var HealthVal = 10;
-
+var isColliding = false;
+var isCollidingSwitch = false;
+var isCollidingLock = false;
+var isGameOver = false;
+var screenWidth = window.innerWidth - 30;
+var screenHeight = window.innerHeight - 30;
 
 function startGame() {
     myGameArea.start();
@@ -17,14 +21,15 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        /*UserID = Cookies.get("UserID");
+        UserID = Cookies.get("UserID");
         console.log(UserID);
-        UserData = getUser(UserID);
-        HealthVal = UserData.Healthstat;*/
+        getUser(UserID).then(UserData => {
+            HealthVal = UserData.Healthstat;
+        });
 
         ////////////////////////////////////////////////////////////////////////
-        this.canvas.width = 1580;
-        this.canvas.height = 670;
+        this.canvas.width = screenWidth;
+        this.canvas.height = screenHeight;
         this.context = this.canvas.getContext("2d");
         this.canvas.style.border = '3px solid #000';
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -110,10 +115,12 @@ function textComponent(text, width, height, x, y) {
 
     this.update = function (text, color) {
         ctx = myGameArea.context;
-        ctx.font = "50px Raleway Light";
+        ctx.globalAlpha = 0.6
         ctx.fillStyle = "grey";
         ctx.fillRect(x,15,300,60);
+        ctx.globalAlpha = 1.0;
         ctx.fillStyle = color;
+        ctx.font = "50px Arial";
         ctx.fillText(text, x, y, width);
     }
 }
@@ -133,6 +140,7 @@ function updateGameArea() {
         obstacle.update();
         if(boxCollision(obstacle, myGamePiece)) {
             obstacle.color = 'green';
+            isCollidingSwitch = true;
 
             //Top collision
             if((myGamePiece.y + myGamePiece.height > obstacle.y) && (myGamePiece.x + myGamePiece.width*0.5 > obstacle.x) && (myGamePiece.x + myGamePiece.width*0.5 < obstacle.x + obstacle.width) && (myGamePiece.y + myGamePiece.height*0.5 < obstacle.y)){
@@ -158,16 +166,26 @@ function updateGameArea() {
         }
     }
 
-
+    if(isCollidingSwitch == true && isCollidingLock == false){
+        isColliding = true;
+        isCollidingLock = true;
+    }
+    else {
+        isColliding = false;
+    }
+    if(isCollidingSwitch == false){
+        isCollidingLock = false;
+    }
+    isCollidingSwitch = false;
 
     //myGamePiece ----------------------------------------------------------------------------
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
-    if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -4; }
-    if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 4; }
+    if (myGameArea.keys && myGameArea.keys[37] && isGameOver == false) {myGamePiece.speedX = -4; }
+    if (myGameArea.keys && myGameArea.keys[39] && isGameOver == false) {myGamePiece.speedX = 4; }
 
 
-    if (myGameArea.keys && myGameArea.keys[38]){
+    if (myGameArea.keys && myGameArea.keys[38] && isGameOver == false){
         /*if(myGamePiece.gravitySpeed >= -0.8){
             myGamePiece.gravity = -0.2;
 
@@ -184,9 +202,19 @@ function updateGameArea() {
     myGamePiece.update();
 
     //Text components
-    ScoreVal += 1;
-    Score.update("Score: "+(ScoreVal*0.1).toFixed(0), "black");
-    Health.update("Health: "+HealthVal, "black");
+    if(isGameOver == false) {
+        ScoreVal += 1;
+    }
+    Score.update("Score: " + (ScoreVal * 0.1).toFixed(0), "black");
+    if(isColliding == true && isGameOver == false) {
+        HealthVal--;
+    }
+    Health.update("Health: " + HealthVal, "black");
+
+    //Code for game over
+    if(HealthVal <= 0){
+        gameOver();
+    }
 }
 
 function boxCollision(rect1, rect2){
@@ -209,4 +237,15 @@ var gameObstacles = {
         gameObstacles.Obstacles.push(obst);
         var test = 0;
     },
+}
+
+function gameOver(){
+    isGameOver = true;
+    ctx = myGameArea.context
+    ctx.fillStyle = "black"
+    ctx.font = "100px Arial"
+    ctx.fillText("GAME OVER", screenWidth*0.5 - 400, screenHeight*0.5, 800);
+    ctx.globalAlpha = 0.4;
+    document.getElementById("PlayAgain").style.display = "block";
+    document.getElementById("Quit").style.display = "block";
 }
