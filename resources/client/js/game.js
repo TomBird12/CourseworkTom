@@ -116,11 +116,11 @@ function textComponent(text, width, height, x, y) {
     this.update = function (text, color) {
         ctx = myGameArea.context;
         ctx.globalAlpha = 0.6
-        ctx.fillStyle = "grey";
+        ctx.fillStyle = "white";
         ctx.fillRect(x,15,300,60);
         ctx.globalAlpha = 1.0;
         ctx.fillStyle = color;
-        ctx.font = "50px Arial";
+        ctx.font = "50px Montserrat Light";
         ctx.fillText(text, x, y, width);
     }
 }
@@ -240,10 +240,19 @@ var gameObstacles = {
 }
 
 function gameOver(){
-    isGameOver = true;
     ctx = myGameArea.context
     ctx.fillStyle = "black"
-    ctx.font = "100px Arial"
+    ctx.font = "100px Montserrat Light"
     ctx.fillText("GAME OVER", screenWidth*0.5 - 400, screenHeight*0.5, 800);
     ctx.globalAlpha = 0.4;
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    const yourFunction = async () => {
+        await delay(2500);
+        window.open("mainmenu.html", "_self");
+    };
+    if(isGameOver == false){
+        yourFunction();
+    }
+    isGameOver = true;
 }

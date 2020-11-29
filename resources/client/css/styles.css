@@ -2,6 +2,35 @@ body{
     background-color: aqua;
 }
 
+h1{
+    width: 800px;
+    height: 500px;
+    position: absolute;
+    font-size: 100px;
+    font-family: "Montserrat Light";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left: 120px;
+    padding-bottom: 90px;
+
+    margin: auto;
+}
+
+#line{
+    width: 300px;
+    height: 5px;
+    position: absolute;
+    border: none;
+    background-color: black;
+    top: 0;
+    bottom: 330px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
 #buttons{
     width: 500px;
     height: 500px;
@@ -24,10 +53,16 @@ body{
     text-decoration: none;
     display: block;
     font-size: 60px;
+    font-family: "Montserrat Light";
     position: relative;
     margin: 10px 0px ;
     width: 500px;
-    top: 100px
+    top: 100px;
+    transition-duration: 0.2s;
+}
+
+#play:hover{
+    font-size: 70px;
 }
 
 #customization{
@@ -38,12 +73,17 @@ body{
     text-decoration: none;
     display: block;
     font-size: 60px;
+    font-family: "Montserrat Light";
     position: relative;
     margin: 10px 0px;
     width: 500px;
     top: 110px;
+    transition-duration: 0.2s;
 }
 
+#customization:hover{
+    font-size: 70px;
+}
 
 #settings{
     background-color: black;
@@ -53,8 +93,14 @@ body{
     text-decoration: none;
     display: block;
     font-size: 60px;
+    font-family: "Montserrat Light";
     position: relative;
     margin: 10px 0px;
     width: 500px;
     top: 120px;
+    transition-duration: 0.2s;
+}
+
+#settings:hover{
+    font-size: 70px;
 }

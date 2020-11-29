@@ -35,7 +35,7 @@ function UsersLogin() {
         } else {
             Cookies.set("LoginToken", response.LoginToken);
             Cookies.set("UserID", response.UserID);
-            window.open("gamepage.html", "_self");       //open mainmenu.html in same tab
+            window.open("mainmenu.html", "_self");       //open mainmenu.html in same tab
         }
     });
 }
