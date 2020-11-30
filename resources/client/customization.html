@@ -4,29 +4,31 @@
     <meta charset="UTF-8">
     <title>Customization</title>
     <link rel="stylesheet" type="text/css" href="/client/css/customization.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.js"></script>
+    <script src="/client/js/users.js"></script>
     <script src="/client/js/customization.js"></script>
 </head>
-<body>
+<body onload="start()">
 
 <div id="LeftColors">
-    <button id="red"></button>
-    <button id="blue"></button>
-    <button id="green"></button>
-    <button id="yellow"></button>
-    <button id="orange"></button>
-    <button id="purple"></button>
-    <button id="pink"></button>
-    <button id="black"></button>
+    <button id="red" onclick="selectColour(this)"></button>
+    <button id="blue" onclick="selectColour(this)"></button>
+    <button id="green" onclick="selectColour(this)"></button>
+    <button id="yellow" onclick="selectColour(this)"></button>
+    <button id="orange" onclick="selectColour(this)"></button>
+    <button id="purple" onclick="selectColour(this)"></button>
+    <button id="pink" onclick="selectColour(this)"></button>
+    <button id="black" onclick="selectColour(this)"></button>
 </div>
 <div id="RightColors">
-    <button id="Rred"></button>
-    <button id="Rblue"></button>
-    <button id="Rgreen"></button>
-    <button id="Ryellow"></button>
-    <button id="Rorange"></button>
-    <button id="Rpurple"></button>
-    <button id="Rpink"></button>
-    <button id="Rblack"></button>
+    <button id="Rred" onclick="selectColour(this)"></button>
+    <button id="Rblue" onclick="selectColour(this)"></button>
+    <button id="Rgreen" onclick="selectColour(this)"></button>
+    <button id="Ryellow" onclick="selectColour(this)"></button>
+    <button id="Rorange" onclick="selectColour(this)"></button>
+    <button id="Rpurple" onclick="selectColour(this)"></button>
+    <button id="Rpink" onclick="selectColour(this)"></button>
+    <button id="Rblack" onclick="selectColour(this)"></button>
 </div>
 
 <canvas id="canvas"></canvas>

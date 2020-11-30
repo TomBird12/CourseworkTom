@@ -22,7 +22,6 @@ var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
         UserID = Cookies.get("UserID");
-        console.log(UserID);
         getUser(UserID).then(UserData => {
             HealthVal = UserData.Healthstat;
         });

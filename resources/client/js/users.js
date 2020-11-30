@@ -58,3 +58,26 @@ function logout() {
     });
 }
 
+function save(UserData){
+    console.log("Invoked save");
+    let url = "/users/save";
+
+    let data = new FormData();
+    for(name in UserData){
+        data.append(name, UserData[name]);
+    }
+
+    fetch(url, {
+        method: "POST",
+        body: data,
+    }).then(response => {
+        return response.json();
+    }).then(response => {
+        if (response.hasOwnProperty("Error")) {
+            alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
+        } else {
+            console.log("Successfully Saved");
+        }
+    })
+}
+
