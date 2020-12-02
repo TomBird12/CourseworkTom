@@ -10,10 +10,12 @@ var isCollidingLock = false;
 var isGameOver = false;
 var screenWidth = window.innerWidth - 30;
 var screenHeight = window.innerHeight - 30;
+var Colour1 = "black";
+var Colour2 = "orange";
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(30, 30, "red", 10, 120, true);
+    myGamePiece = new component(true,30, 30, "red", 10, 120, true);
     Score = new textComponent("Score: ", 500, 200, 20, 60);
     Health = new textComponent("Health: ", 500, 200, 400, 60)
 }
@@ -24,6 +26,9 @@ var myGameArea = {
         UserID = Cookies.get("UserID");
         getUser(UserID).then(UserData => {
             HealthVal = UserData.Healthstat;
+            Colour1 = UserData.Colour1;
+            Colour2 = UserData.Colour2;
+
         });
 
         ////////////////////////////////////////////////////////////////////////
@@ -50,7 +55,7 @@ var myGameArea = {
     }
 }
 
-function component(width, height, color, x, y, isPhysicsEnabled) {
+function component(isPlayer, width, height, color, x, y, isPhysicsEnabled) {
     this.gamearea = myGameArea;
     this.width = width;
     this.height = height;
@@ -61,11 +66,41 @@ function component(width, height, color, x, y, isPhysicsEnabled) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
     this.isPhysicsEnabled = isPhysicsEnabled;
+    this.isPlayer = isPlayer;
     this.color = color;
     this.update = function () {
         ctx = myGameArea.context;
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        if(isPlayer == true){
+            let centreX = this.x+this.width*0.5;
+            let centreY = this.y+this.height*0.5;
+            let size = 2.2;
+
+            //Shows Hitbox
+            /*ctx.fillStyle = "red";
+            ctx.fillRect(this.x, this.y, this.width, this.height);*/
+
+            ctx.fillStyle = Colour1;
+            ctx.beginPath();
+            ctx.moveTo(centreX, centreY);
+            ctx.lineTo(centreX,centreY+10*size);
+            ctx.lineTo(centreX+15*size,centreY);
+            ctx.lineTo(centreX, centreY-10*size);
+            ctx.lineTo(centreX,centreY);
+            ctx.fill();
+
+            ctx.fillStyle = Colour2;
+            ctx.beginPath();
+            ctx.moveTo(centreX,centreY);
+            ctx.lineTo(centreX,centreY+5*size);
+            ctx.lineTo(centreX-15*size,centreY);
+            ctx.lineTo(centreX,centreY-5*size);
+            ctx.lineTo(centreX,centreY);
+            ctx.fill();
+        }
+        else {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
     }
     this.newPos = function () {
         if (isPhysicsEnabled == true) {
@@ -232,7 +267,7 @@ function boxCollision(rect1, rect2){
 var gameObstacles = {
     Obstacles : [],
     newObstacle : function (){
-        var obst = new component((Math.floor(Math.random() * 120) + 40), (Math.floor(Math.random() * 120) + 40), "black", myGameArea.canvas.width, Math.floor(Math.random() * (myGameArea.canvas.height + 30)), false);
+        var obst = new component(false, (Math.floor(Math.random() * 120) + 40), (Math.floor(Math.random() * 120) + 40), "black", myGameArea.canvas.width, Math.floor(Math.random() * (myGameArea.canvas.height + 30)), false);
         gameObstacles.Obstacles.push(obst);
         var test = 0;
     },

@@ -66,11 +66,29 @@ function draw(){
     let ctx = canvas.getContext("2d");
     canvas.width = 500;
     canvas.height = 500;
+    let centreX = canvas.width*0.5;
+    let centreY = canvas.width*0.5;
 
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.fillStyle = colour1
-    ctx.fillRect(canvas.width*0.5,canvas.height*0.5,200,200);
+    ctx.beginPath();
+    ctx.moveTo(centreX, centreY);
+    ctx.lineTo(centreX,centreY+100);
+    ctx.lineTo(centreX+150,centreY);
+    ctx.lineTo(centreX, centreY-100);
+    ctx.lineTo(centreX,centreY);
+    ctx.fill();
+
+    //ctx.fillRect(canvas.width*0.5,canvas.height*0.5,200,200);
 
     ctx.fillStyle = colour2
-    ctx.fillRect(canvas.width*0.5-20, canvas.height*0.5-20,100,100);
+    ctx.beginPath();
+    ctx.moveTo(centreX,centreY);
+    ctx.lineTo(centreX,centreY+50);
+    ctx.lineTo(centreX-150,centreY);
+    ctx.lineTo(centreX,centreY-50);
+    ctx.lineTo(centreX,centreY);
+    ctx.fill();
+
+    //ctx.fillRect(canvas.width*0.5-20, canvas.height*0.5-20,100,100);
 }
