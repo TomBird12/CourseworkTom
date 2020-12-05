@@ -312,7 +312,7 @@ function gameOver(){
     };
     if(isGameOver == false){
         yourFunction();
-        UserDataN.Coins = Number(UserDataN.Coins) + (ScoreVal * 0.01).toFixed(0);
+        UserDataN.Coins = parseInt(UserDataN.Coins) + parseInt((ScoreVal * 0.01).toFixed(0));
         save(UserDataN);
     }
     isGameOver = true;
