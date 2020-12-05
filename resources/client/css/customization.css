@@ -1,12 +1,26 @@
 #canvas{
     position: absolute;
     top:0;
-    bottom: 0;
+    bottom: 250px;
     left: 0;
     right: 0;
 
     margin: auto;
     background-color: lightgray;
+}
+
+#coins{
+    width: 400px;
+    height: 50px;
+    position: absolute;
+    top: 150px;
+    bottom: 0px;
+    left: 0;
+    right: 50px;
+
+    margin: auto;
+    font-size: 50px;
+    font-family: "Montserrat Light";
 }
 
 #LeftColors{
@@ -15,7 +29,7 @@
     background-color: gray;
     position: absolute;
     top:0;
-    bottom: 0;
+    bottom: 250px;
     left: 0;
     right: 770px;
 
@@ -139,7 +153,7 @@
     background-color: gray;
     position: absolute;
     top:0;
-    bottom: 0;
+    bottom: 250px;
     left: 770px;
     right: 0;
 
@@ -255,5 +269,480 @@
     margin: auto;
 
     background-color: black;
+    border: none;
+}
+
+#Progression{
+    width: 1020px;
+    height: 250px;
+    position: absolute;
+    top:520px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+    background-color: gray;
+}
+
+#HEALTH{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top:0px;
+    bottom: 150px;
+    left: 0;
+    right: 880px;
+    margin: auto;
+
+    font-size: 40px;
+    font-family: "Montserrat Light";
+}
+
+#SHIELD{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top:0px;
+    bottom: 0;
+    left: 0;
+    right: 880px;
+    margin: auto;
+
+    font-size: 40px;
+    font-family: "Montserrat Light";
+}
+
+#SPEED{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top:150px;
+    bottom: 0;
+    left: 0;
+    right: 880px;
+    margin: auto;
+
+    font-size: 40px;
+    font-family: "Montserrat Light";
+}
+
+#health1{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 0;
+    right: 500px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health2{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 0;
+    right: 360px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health3{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 0;
+    right: 220px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health4{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 0;
+    right: 80px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health5{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 60px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health6{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 200px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health7{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 340px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health8{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 480px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health9{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 620px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#health10{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 150px;
+    left: 760px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield1{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 500px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield2{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 360px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield3{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 220px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield4{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 80px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield5{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 60px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield6{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 200px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield7{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 340px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield8{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 480px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield9{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 620px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#shield10{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:0;
+    bottom: 0;
+    left: 760px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed1{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top:150px;
+    bottom: 0;
+    left: 0;
+    right: 500px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed2{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 0;
+    right: 360px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed3{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 0;
+    right: 220px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed4{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 0;
+    right: 80px;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed5{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 60px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed6{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 200px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed7{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 340px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed8{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 480px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed9{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 620px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
+    border: none;
+}
+
+#speed10{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 760px;
+    right: 0;
+    margin: auto;
+
+    background-color: white;
     border: none;
 }

@@ -3,6 +3,7 @@ var colour1;
 var colour2;
 var colour1Button;
 var colour2Button;
+var coins;
 
 function start(){
     UserID = Cookies.get("UserID");
@@ -10,6 +11,9 @@ function start(){
         this.UserData = UserData;
         colour1 = UserData.Colour1;
         colour2 = UserData.Colour2
+        coins = UserData.Coins;
+
+        document.getElementById("coins").innerHTML = "COINS: "+coins;
 
         colour1Button = document.getElementById(colour1.toString())
         colour1Button.style.outlineStyle = "solid";
