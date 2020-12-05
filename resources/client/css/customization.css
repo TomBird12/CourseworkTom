@@ -339,6 +339,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health2{
@@ -353,6 +354,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health3{
@@ -367,6 +369,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health4{
@@ -381,6 +384,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health5{
@@ -395,6 +399,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health6{
@@ -409,6 +414,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health7{
@@ -423,6 +429,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health8{
@@ -437,6 +444,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health9{
@@ -451,6 +459,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #health10{
@@ -465,6 +474,21 @@
 
     background-color: white;
     border: none;
+    outline: none;
+}
+
+#healthPrice{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top:0;
+    bottom: 155px;
+    left: 925px;
+    right: 0;
+    margin: auto;
+
+    font-size: 50px;
+    font-family: "Montserrat Light";
 }
 
 #shield1{
@@ -479,6 +503,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield2{
@@ -493,6 +518,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield3{
@@ -507,6 +533,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield4{
@@ -521,6 +548,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield5{
@@ -535,6 +563,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield6{
@@ -549,6 +578,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield7{
@@ -563,6 +593,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield8{
@@ -577,6 +608,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield9{
@@ -591,6 +623,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #shield10{
@@ -605,6 +638,21 @@
 
     background-color: white;
     border: none;
+    outline: none;
+}
+
+#shieldPrice{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top:0;
+    bottom: 5px;
+    left: 925px;
+    right: 0;
+    margin: auto;
+
+    font-size: 50px;
+    font-family: "Montserrat Light";
 }
 
 #speed1{
@@ -619,6 +667,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed2{
@@ -633,6 +682,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed3{
@@ -647,6 +697,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed4{
@@ -661,6 +712,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed5{
@@ -675,6 +727,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed6{
@@ -689,6 +742,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed7{
@@ -703,6 +757,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed8{
@@ -717,6 +772,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed9{
@@ -731,6 +787,7 @@
 
     background-color: white;
     border: none;
+    outline: none;
 }
 
 #speed10{
@@ -745,4 +802,19 @@
 
     background-color: white;
     border: none;
+    outline: none;
+}
+
+#speedPrice{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 150px;
+    bottom: 0;
+    left: 925px;
+    right: 0;
+    margin: auto;
+
+    font-size: 50px;
+    font-family: "Montserrat Light";
 }

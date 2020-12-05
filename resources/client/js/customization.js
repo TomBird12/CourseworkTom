@@ -4,6 +4,12 @@ var colour2;
 var colour1Button;
 var colour2Button;
 var coins;
+var Healthstat;
+var Shieldstat;
+var Speedstat;
+var HealthPrice;
+var ShieldPrice;
+var SpeedPrice;
 
 function start(){
     UserID = Cookies.get("UserID");
@@ -12,6 +18,32 @@ function start(){
         colour1 = UserData.Colour1;
         colour2 = UserData.Colour2
         coins = UserData.Coins;
+        Healthstat = UserData.Healthstat;
+        Shieldstat = UserData.Shieldstat;
+        Speedstat = UserData.Speedstat;
+
+        HealthPrice = Healthstat*10;
+        ShieldPrice = Shieldstat*10;
+        SpeedPrice = Speedstat*10;
+        document.getElementById("healthPrice").innerHTML = HealthPrice;
+        document.getElementById("shieldPrice").innerHTML = ShieldPrice;
+        document.getElementById("speedPrice").innerHTML = SpeedPrice;
+
+        //Setting purchased upgrades
+        for(i = 1; i <= Healthstat; i++){
+            document.getElementById("health"+i).style.backgroundColor = "lawngreen";
+            document.getElementById("health"+i).disabled = true;
+        }
+        for(i = 1; i <= Shieldstat; i++){
+            document.getElementById("shield"+i).style.backgroundColor = "lawngreen";
+            document.getElementById("shield"+i).disabled = true;
+        }
+        for(i = 1; i <= Speedstat; i++){
+            document.getElementById("speed"+i).style.backgroundColor = "lawngreen";
+            document.getElementById("speed"+i).disabled = true;
+        }
+
+
 
         document.getElementById("coins").innerHTML = "COINS: "+coins;
 
@@ -95,4 +127,56 @@ function draw(){
     ctx.fill();
 
     //ctx.fillRect(canvas.width*0.5-20, canvas.height*0.5-20,100,100);
+}
+
+function purchase(element){
+    id = element.id;
+    if(id.includes("health")){
+        if(coins >= HealthPrice){
+            coins = coins - HealthPrice;
+            document.getElementById("coins").innerHTML = "COINS: "+coins;
+            Healthstat++;
+            HealthPrice = Healthstat*10;
+            document.getElementById("healthPrice").innerHTML = HealthPrice;
+            element.style.backgroundColor = "lawngreen"
+            element.disabled = true;
+
+            //saving to database
+            UserData.Coins = coins;
+            UserData.Healthstat = Healthstat;
+            save(UserData);
+        }
+    }
+    else if(id.includes("shield")){
+        if(coins >= ShieldPrice){
+            coins = coins - ShieldPrice;
+            document.getElementById("coins").innerHTML = "COINS: "+coins;
+            Shieldstat++;
+            ShieldPrice = Shieldstat*10;
+            document.getElementById("shieldPrice").innerHTML = ShieldPrice;
+            element.style.backgroundColor = "lawngreen"
+            element.disabled = true;
+
+            //saving to database
+            UserData.Coins = coins;
+            UserData.Shieldstat = Shieldstat;
+            save(UserData);
+        }
+    }
+    else if(id.includes("speed")){
+        if(coins >= SpeedPrice){
+            coins = coins - SpeedPrice;
+            document.getElementById("coins").innerHTML = "COINS: "+coins;
+            Speedstat++;
+            SpeedPrice = Speedstat*10;
+            document.getElementById("speedPrice").innerHTML = SpeedPrice;
+            element.style.backgroundColor = "lawngreen"
+            element.disabled = true;
+
+            //saving to database
+            UserData.Coins = coins;
+            UserData.Speedstat = Speedstat;
+            save(UserData);
+        }
+    }
 }
