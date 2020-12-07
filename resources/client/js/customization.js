@@ -146,6 +146,10 @@ function purchase(element){
             UserData.Healthstat = Healthstat;
             save(UserData);
         }
+        else{
+            document.getElementById("coins").style.color = "red";
+            document.getElementById("coins").style.fontWeight = "bold";
+        }
     }
     else if(id.includes("shield")){
         if(coins >= ShieldPrice){
@@ -161,6 +165,10 @@ function purchase(element){
             UserData.Coins = coins;
             UserData.Shieldstat = Shieldstat;
             save(UserData);
+        }
+        else{
+            document.getElementById("coins").style.color = "red";
+            document.getElementById("coins").style.fontWeight = "bold";
         }
     }
     else if(id.includes("speed")){
@@ -178,5 +186,17 @@ function purchase(element){
             UserData.Speedstat = Speedstat;
             save(UserData);
         }
+        else{
+            document.getElementById("coins").style.color = "red";
+            document.getElementById("coins").style.fontWeight = "bold";
+        }
     }
+    yourFunction()
 }
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+const yourFunction = async () => {
+    await delay(250);
+    document.getElementById("coins").style.color = "black";
+    document.getElementById("coins").style.fontWeight = "normal";
+};
