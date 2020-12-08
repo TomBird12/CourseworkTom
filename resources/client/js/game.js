@@ -2,8 +2,10 @@ var myGamePiece;
 var UserID;
 var Score;
 var Health;
+var Shield;
 var ScoreVal = 0;
 var HealthVal = 10;
+var ShieldVal = 5;
 var isColliding = false;
 var isCollidingSwitch = false;
 var isCollidingLock = false;
@@ -12,12 +14,16 @@ var screenWidth = window.innerWidth - 30;
 var screenHeight = window.innerHeight - 30;
 var Colour1 = "black";
 var Colour2 = "orange";
+var SpeedVal;
+var HighScore;
+var UserDataN;
 
 function startGame() {
     myGameArea.start();
     myGamePiece = new component(true,30, 30, "red", 10, 120, true);
     Score = new textComponent("Score: ", 500, 200, 20, 60);
-    Health = new textComponent("Health: ", 500, 200, 400, 60)
+    Health = new textComponent("Health: ", 500, 200, 300, 60)
+    Shield = new textComponent("Shield: ",300,200, 600,60)
 }
 
 var myGameArea = {
@@ -25,9 +31,13 @@ var myGameArea = {
     start : function() {
         UserID = Cookies.get("UserID");
         getUser(UserID).then(UserData => {
+            UserDataN = UserData;
             HealthVal = UserData.Healthstat;
+            ShieldVal = UserData.Shieldstat;
+            SpeedVal = (UserData.Speedstat *0.1)+1;
             Colour1 = UserData.Colour1;
             Colour2 = UserData.Colour2;
+            HighScore = UserData.HighScore;
 
         });
 
@@ -215,8 +225,8 @@ function updateGameArea() {
     //myGamePiece ----------------------------------------------------------------------------
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
-    if (myGameArea.keys && myGameArea.keys[37] && isGameOver == false) {myGamePiece.speedX = -4; }
-    if (myGameArea.keys && myGameArea.keys[39] && isGameOver == false) {myGamePiece.speedX = 4; }
+    if (myGameArea.keys && myGameArea.keys[37] && isGameOver == false) {myGamePiece.speedX = -4*SpeedVal; }
+    if (myGameArea.keys && myGameArea.keys[39] && isGameOver == false) {myGamePiece.speedX = 4*SpeedVal; }
 
 
     if (myGameArea.keys && myGameArea.keys[38] && isGameOver == false){
@@ -241,8 +251,14 @@ function updateGameArea() {
     }
     Score.update("Score: " + (ScoreVal * 0.1).toFixed(0), "black");
     if(isColliding == true && isGameOver == false) {
-        HealthVal--;
+        if(ShieldVal > 0){
+            ShieldVal--;
+        }
+        else {
+            HealthVal--;
+        }
     }
+    Shield.update("Shield: "+ ShieldVal, "black");
     Health.update("Health: " + HealthVal, "black");
 
     //Code for game over
@@ -278,15 +294,26 @@ function gameOver(){
     ctx.fillStyle = "black"
     ctx.font = "100px Montserrat Light"
     ctx.fillText("GAME OVER", screenWidth*0.5 - 400, screenHeight*0.5, 800);
+    ctx.font = "50px Montserrat"
+    if((ScoreVal * 0.1).toFixed(0) < HighScore){
+        ctx.fillText("SCORE: "+(ScoreVal * 0.1).toFixed(0)+" HIGHSCORE: "+HighScore, screenWidth*0.5 - 430, screenHeight*0.5 + 100, 2000);
+    }
+    else {
+        ctx.fillText("NEW HIGHSCORE: "+(ScoreVal * 0.1).toFixed(0), screenWidth*0.5 - 340, screenHeight*0.5 + 100, 2000);
+        UserDataN.HighScore = (ScoreVal * 0.1).toFixed(0);
+    }
+    ctx.fillText("COINS EARNED: "+(ScoreVal * 0.01).toFixed(0), screenWidth*0.5 - 340, screenHeight*0.5 + 180, 2000);
     ctx.globalAlpha = 0.4;
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
     const yourFunction = async () => {
-        await delay(2500);
+        await delay(5000);
         window.open("mainmenu.html", "_self");
     };
     if(isGameOver == false){
         yourFunction();
+        UserDataN.Coins = parseInt(UserDataN.Coins) + parseInt((ScoreVal * 0.01).toFixed(0));
+        save(UserDataN);
     }
     isGameOver = true;
 }
