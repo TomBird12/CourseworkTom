@@ -314,6 +314,7 @@ function gameOver(){
         yourFunction();
         UserDataN.Coins = parseInt(UserDataN.Coins) + parseInt((ScoreVal * 0.01).toFixed(0));
         save(UserDataN);
+        saveInstance(UserDataN.Username, (ScoreVal * 0.01).toFixed(0));
     }
     isGameOver = true;
 }
