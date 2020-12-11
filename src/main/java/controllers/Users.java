@@ -181,12 +181,15 @@ public class Users{
     public String getLeaderboard() {
         System.out.println("Invoked getLeaderboard");
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT * FROM GameInstances ORDER BY Score ASC");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT * FROM GameInstances ORDER BY Score DESC LIMIT 5");
             ResultSet results = ps.executeQuery();
             JSONObject response = new JSONObject();
             if (results.next()== true) {
-                response.put("Username", results.getString(0));
-                response.put("Score", results.getInt(1));
+                for(int x = 1; x < 6; x++){
+                    response.put("Username"+x, results.getString(3));
+                    response.put("Score"+x, results.getInt(2));
+                    results.next();
+                }
             }
             else{
                 System.out.println("getLeaderboard failed");

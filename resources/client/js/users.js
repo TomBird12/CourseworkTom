@@ -104,18 +104,16 @@ function saveInstance(Username, Score){
     })
 }
 
-function getLeaderboard(){
-    console.log("Invoked getLeaderboard()");
-    let url = "/users/getLeaderboard";
+async function getLeaderboard() {
+    console.log("Invoked getLeaderboard()");     //console.log your BFF for debugging client side - also use debugger statement
+    let url = "/users/getLeaderboard";    		// API method on web server will be in Users class, method list                       ADD Input for UserID into get
 
-    fetch(url, {method:"GET"}
-    ).then(response => {
-        return response.json();
-    }).then(response => {
-        if (response.hasOwnProperty("Error")) {
-            alert(JSON.stringify(response));
-        } else {
-            console.log("Successfully retrieved Leaderboard");
-        }
-    })
+    const response = await fetch(url, {method: "GET"});
+    if (response.hasOwnProperty("Error")) { //checks if response from the web server has an "Error"
+        alert(JSON.stringify(response));    // if it does, convert JSON object to string and alert (pop up window)
+    } else {
+        const data = await response.json();
+        return JSON.parse(JSON.stringify(data))
+        console.log("Successfully retrieved Leaderboard");
+    }
 }

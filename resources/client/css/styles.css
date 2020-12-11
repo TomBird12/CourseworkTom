@@ -1,5 +1,6 @@
 body{
-    background-color: aqua;
+    background: rgb(0,215,255);
+    background: radial-gradient(circle, rgba(0,215,255,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 h1{
@@ -116,4 +117,22 @@ h1{
     right: 40px;
 
     margin: auto;
+}
+
+#mainmenuStats{
+    width: 400px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    bottom: 780px;
+    left: 0;
+    right: 640px;
+
+    margin: auto;
+    font-size: 30px;
+    color: white;
+    font-family: "Montserrat Light";
+    border: none;
+    outline: none;
+    background-color: black;
 }

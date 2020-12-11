@@ -1,8 +1,6 @@
 
 
 function leaderboard() {
-    let boardData = getLeaderboard();
-    console.log(boardData);
     var table = document.getElementById("leaderboard");
     table.style.border = "1px solid black";
     table.style.backgroundColor = "black";
@@ -24,20 +22,28 @@ function leaderboard() {
     scoreColumn.style.paddingLeft = "75px";
     scoreColumn.style.paddingRight = "75px";
 
+    getLeaderboard().then(response => {
+        leaderboardData = response;
 
+        for(x = 0; x < 5; x++){
+            console.log(x);
+            let row = table.insertRow(x+1);
+            row.style.color = "white";
+            row.style.fontSize = "80px";
+            row.style.fontFamily = "Montserrat Light";
+            row.style.textAlign = "center";
 
-    for(i = 1; i < 6; i++){
-        let row = table.insertRow(i);
-        row.style.color = "white";
-        row.style.fontSize = "80px";
-        row.style.fontFamily = "Montserrat Light";
-        row.style.textAlign = "center";
+            let username = row.insertCell(0);
+            username.innerHTML = leaderboardData["Username"+(x+1)];
 
-        let username = row.insertCell(0);
-        username.innerHTML = "tomb12";
+            let score = row.insertCell(1)
+            score.innerHTML = leaderboardData["Score"+(x+1)];
 
-        let score = row.insertCell(1)
-        score.innerHTML = "43";
+        }
+    })
 
-    }
+}
+
+function mainmenu(){
+    window.open("mainmenu.html","_self");
 }
