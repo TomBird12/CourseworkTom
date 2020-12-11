@@ -158,5 +158,45 @@ public class Users{
     }
 
 
+    @POST
+    @Path("saveInstance")
+    public String saveInstance(@FormDataParam("Username") String Username, @FormDataParam("Score") Integer Score) {
+        try {
+            System.out.println("Invoked Users.saveInstance() Username=" + Username);
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO GameInstances (Username, Score) VALUES (?,?)");
+            ps.setString(1, Username);
+            ps.setInt(2, Score);
+            ps.execute();
+            return "{\"OK\": \"Instance saved\"}";
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"Error\": \"Unable to save instance, please see server console for more info.\"}";
+        }
+    }
+
+    @GET
+    @Path("getLeaderboard")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getLeaderboard() {
+        System.out.println("Invoked getLeaderboard");
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT * FROM GameInstances ORDER BY Score ASC");
+            ResultSet results = ps.executeQuery();
+            JSONObject response = new JSONObject();
+            if (results.next()== true) {
+                response.put("Username", results.getString(0));
+                response.put("Score", results.getInt(1));
+            }
+            else{
+                System.out.println("getLeaderboard failed");
+            }
+            return response.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"Error\": \"Unable to get leaderboard, please see server console for more info.\"}";
+        }
+    }
+
 
 }

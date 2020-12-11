@@ -200,3 +200,7 @@ const yourFunction = async () => {
     document.getElementById("coins").style.color = "black";
     document.getElementById("coins").style.fontWeight = "normal";
 };
+
+function mainmenu(){
+    window.open("mainmenu.html","_self");
+}

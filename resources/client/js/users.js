@@ -81,3 +81,41 @@ function save(UserData){
     })
 }
 
+
+function saveInstance(Username, Score){
+    console.log("Invoked saveInstance");
+    let url = "/users/saveInstance";
+
+    let data = new FormData();
+    data.append("Username", Username);
+    data.append("Score", Score);
+
+    fetch(url, {
+        method: "POST",
+        body: data,
+    }).then(response => {
+        return response.json();
+    }).then(response => {
+        if (response.hasOwnProperty("Error")) {
+            alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
+        } else {
+            console.log("Successfully Saved Instance");
+        }
+    })
+}
+
+function getLeaderboard(){
+    console.log("Invoked getLeaderboard()");
+    let url = "/users/getLeaderboard";
+
+    fetch(url, {method:"GET"}
+    ).then(response => {
+        return response.json();
+    }).then(response => {
+        if (response.hasOwnProperty("Error")) {
+            alert(JSON.stringify(response));
+        } else {
+            console.log("Successfully retrieved Leaderboard");
+        }
+    })
+}

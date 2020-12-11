@@ -23,6 +23,24 @@
     font-family: "Montserrat Light";
 }
 
+#mainmenu{
+    width: 280px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    bottom: 690px;
+    left: 0;
+    right: 200px;
+
+    margin: auto;
+    font-size: 20px;
+    color: white;
+    font-family: "Montserrat Light";
+    border: none;
+    outline: none;
+    background-color: black;
+}
+
 #LeftColors{
     width: 250px;
     height: 500px;
