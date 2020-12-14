@@ -26,12 +26,26 @@ function leaderboard() {
         leaderboardData = response;
 
         for(x = 0; x < 5; x++){
-            console.log(x);
             let row = table.insertRow(x+1);
-            row.style.color = "white";
-            row.style.fontSize = "80px";
             row.style.fontFamily = "Montserrat Light";
             row.style.textAlign = "center";
+            switch(x){
+                case 0:
+                    row.style.color = "gold";
+                    row.style.fontSize = "100px";
+                    break;
+                case 1:
+                    row.style.color = "#c4cace";
+                    row.style.fontSize = "80px";
+                    break;
+                case 2:
+                    row.style.color = "brown";
+                    row.style.fontSize = "70px";
+                    break;
+                default:
+                    row.style.color = "white";
+                    row.style.fontSize = "60px";
+            }
 
             let username = row.insertCell(0);
             username.innerHTML = leaderboardData["Username"+(x+1)];
