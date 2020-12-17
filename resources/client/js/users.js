@@ -14,28 +14,37 @@ async function getUser(UserID) {
 
 
 function UsersLogin() {
+    //Console message to indicate function has been called, useful for debugging
     console.log("Invoked UsersLogin() ");
     let url = "/users/attemptlogin";
+    //Validation to ensure user has entered a username and password
     if(document.forms["LoginForm"]["Username"].value == "" || document.forms["LoginForm"]["Password"].value == ""){
         alert("Please enter a username and password")
         return;
     }
     else{
+        //Puts the username and password into a formdata object so it can be used by the API
         var formData = new FormData(document.getElementById('LoginForm'));
     }
 
     fetch(url, {
         method: "POST",
+        //FormData object that contains username and password
         body: formData,
     }).then(response => {
-        return response.json();                 //now return that promise to JSON
+        //Returns promise as JSON
+        return response.json();
     }).then(response => {
+        //checks if response has an error
         if (response.hasOwnProperty("Error")) {
-            alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
+            // if it does, convert JSON object to string and alert
+            alert(JSON.stringify(response));
         } else {
+            //Saves LoginToken and UserID as cookies
             Cookies.set("LoginToken", response.LoginToken);
             Cookies.set("UserID", response.UserID);
-            window.open("mainmenu.html", "_self");       //open mainmenu.html in same tab
+            //Open mainmenu.html in same tab
+            window.open("mainmenu.html", "_self");
         }
     });
 }

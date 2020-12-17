@@ -90,16 +90,22 @@ public class Users{
 
     @POST
     @Path("attemptlogin")
-    public String attemptlogin(@FormDataParam("Username") String Username, @FormDataParam("Password") String Password){
+    public String Attemptlogin(@FormDataParam("Username") String Username, @FormDataParam("Password") String Password){
         try{
             System.out.println("Invoked Users.attemptlogin Username= "+Username);
+            //SQL statement to select password from Users table where Username is the one inputted by the user
             PreparedStatement ps1 = Main.db.prepareStatement("SELECT Password FROM Users WHERE Username = ?");
             ps1.setString(1, Username);
+            //Saves the results of the SQL query into a ResultSet object
             ResultSet loginResults = ps1.executeQuery();
+            //Checks that there is actually results
             if(loginResults.next() == true) {
                 String correctPassword = loginResults.getString(1);
+                //Compares inputted password to the one in the database
                 if(Password.equals(correctPassword)){
+                    //Generates a random LoginToken cookie
                     String LoginToken = UUID.randomUUID().toString();
+                    //Sets the LoginToken in the Users table
                     PreparedStatement ps2 = Main.db.prepareStatement("UPDATE Users SET LoginToken = ? WHERE Username = ?");
                     ps2.setString(1, LoginToken);
                     ps2.setString(2, Username);
