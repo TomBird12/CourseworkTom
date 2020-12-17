@@ -26,10 +26,14 @@ public class Users{
     public String get(@PathParam("UserID") Integer UserID) {
         System.out.println("Invoked Users.get() with UserID " + UserID);
         try {
+            //SQL statement to select all data related to user with UserID passed as path parameter
             PreparedStatement ps = Main.db.prepareStatement("SELECT Username, Password, Level, Coins, HighScore, LoginToken, Colour1, Colour2, Speedstat, Healthstat, Shieldstat, Settings1, Settings2, Settings3, Settings4 FROM Users WHERE UserID = ?");
             ps.setInt(1, UserID);
+            //Saves the returned data into a ResultSet object
             ResultSet results = ps.executeQuery();
+            //Puts data into a JSON object
             JSONObject response = new JSONObject();
+            //Checks that there is actually data in results
             if (results.next()== true) {
                 response.put("UserID", UserID);
                 response.put("Username", results.getString(1));
@@ -62,7 +66,9 @@ public class Users{
     @Path("save")
     public String save(@FormDataParam("UserID") Integer UserID, @FormDataParam("Username") String Username, @FormDataParam("Password") String Password, @FormDataParam("Level") Integer Level, @FormDataParam("Coins") Integer Coins, @FormDataParam("HighScore") Integer HighScore, @FormDataParam("LoginToken") String LoginToken, @FormDataParam("Colour1") String Colour1, @FormDataParam("Colour2") String Colour2, @FormDataParam("Speedstat") Integer Speedstat, @FormDataParam("Healthstat") Integer Healthstat, @FormDataParam("Shieldstat") Integer Shieldstat, @FormDataParam("Settings1") String Settings1, @FormDataParam("Settings2") Integer Settings2, @FormDataParam("Settings3") String Settings3, @FormDataParam("Settings4") Integer Settings4) {
         try {
+            //console message to indicate API has been called and help with debugging
             System.out.println("Invoked Users.save() UserID=" + UserID);
+            //SQL statement to update data of user with UserID inputted
             PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET Username = ? , Password = ? , Level = ? , Coins = ? , HighScore = ? , LoginToken = ? , Colour1 = ? , Colour2 = ? , Speedstat = ? , Healthstat = ? , Shieldstat = ? , Settings1 = ? , Settings2 = ? , Settings3 = ? , Settings4 = ? WHERE UserID = ?");
             ps.setString(1, Username);
             ps.setString(2, Password);
@@ -143,9 +149,12 @@ public class Users{
     public static String logout(@CookieParam("LoginToken") String LoginToken){
         try{
             System.out.println("invoked users/logout with LoginToken: "+ LoginToken);
+            //SQL statement to select the UserID of the user with the LoginToken that's in the browser
             PreparedStatement ps = Main.db.prepareStatement("SELECT UserID FROM Users WHERE LoginToken=?");
             ps.setString(1, LoginToken);
+            //Saves the result of the SQL statement into a ResultSet object
             ResultSet logoutResults = ps.executeQuery();
+            //Checks that there is actually results
             if (logoutResults.next()){
                 int UserID = logoutResults.getInt(1);
                 //Set the token to null to indicate that the user is not logged in

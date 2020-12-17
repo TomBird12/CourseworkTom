@@ -43,8 +43,9 @@ function UsersLogin() {
             //Saves LoginToken and UserID as cookies
             Cookies.set("LoginToken", response.LoginToken);
             Cookies.set("UserID", response.UserID);
+            console.log("Login Successful");
             //Open mainmenu.html in same tab
-            window.open("mainmenu.html", "_self");
+            //window.open("mainmenu.html", "_self");
         }
     });
 }
