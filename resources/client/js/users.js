@@ -45,7 +45,7 @@ function UsersLogin() {
             Cookies.set("UserID", response.UserID);
             console.log("Login Successful");
             //Open mainmenu.html in same tab
-            //window.open("mainmenu.html", "_self");
+            window.open("mainmenu.html", "_self");
         }
     });
 }
