@@ -32,11 +32,26 @@ var myGameArea = {
         UserID = Cookies.get("UserID");
         getUser(UserID).then(UserData => {
             UserDataN = UserData;
-            HealthVal = UserData.Healthstat;
+            if(UserData.Healthstat > 0){
+                HealthVal = UserData.Healthstat;
+            }
+            else{
+                HealthVal = 1;
+            }
             ShieldVal = UserData.Shieldstat;
             SpeedVal = (UserData.Speedstat *0.1)+1;
-            Colour1 = UserData.Colour1;
-            Colour2 = UserData.Colour2;
+            if(UserData.Colour1 != null){
+                Colour1 = UserData.Colour1;
+            }
+            else{
+                Colour1 = "black";
+            }
+            if(UserData.Colour2 != null){
+                Colour2 = UserData.Colour2;
+            }
+            else{
+                Colour2 = "orange";
+            }
             HighScore = UserData.HighScore;
 
         });
@@ -150,6 +165,7 @@ function component(isPlayer, width, height, color, x, y, isPhysicsEnabled) {
 }
 
 function textComponent(text, width, height, x, y) {
+    //Setting attributes
     this.gamearea = myGameArea;
     this.text = text;
     this.width = width;
@@ -157,11 +173,16 @@ function textComponent(text, width, height, x, y) {
     this.x = x;
     this.y = y;
 
+    //Update function dictates what happens to this object on game logic interval
     this.update = function (text, color) {
         ctx = myGameArea.context;
+
+        //Draws semi-transparent background square
         ctx.globalAlpha = 0.6
         ctx.fillStyle = "white";
         ctx.fillRect(x,15,300,60);
+
+        //Draws text
         ctx.globalAlpha = 1.0;
         ctx.fillStyle = color;
         ctx.font = "50px Montserrat Light";
